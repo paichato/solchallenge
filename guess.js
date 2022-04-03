@@ -2,7 +2,7 @@ const test = () => {
   console.log("hello");
 };
 
-const colors = { error: "#CC3300", success: "#32BF00" };
+const colors = { error: "#CC3300", success: "#32BF00", green: "green" };
 
 let serverData = { number: "0", status: "null" };
 
@@ -44,8 +44,14 @@ const newHandleSubmit = () => {
   //if is success show newGame button
   if (comparisonResult.class === "success") {
     showSegmentNumbers(inputValue, colors.success);
-    // changeColor("green");
+    document
+      .getElementById("response-message")
+      .classList.add(comparisonResult.class);
+    const html = `<p>${comparisonResult.result}</p>`;
+    let container = document.querySelector("div #response-message");
+    container.innerHTML = html;
     blockFieldsAndShowNewGameButton();
+    return;
   }
 
   document
