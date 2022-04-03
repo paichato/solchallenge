@@ -153,7 +153,7 @@ svg.success path.success {
   fill: "yellow";
 }
 
-.segment {
+.segment.error {
   fill: red;
 }
 

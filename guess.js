@@ -6,7 +6,7 @@ const handleSubmit = async () => {
   const inputValue = document.getElementById("guess-input").value;
   if (!inputValue) return;
   clearInput();
-  showSegmentNumbers(inputValue);
+  // showSegmentNumbers(inputValue);
   checkGuessing(inputValue);
 };
 
@@ -24,8 +24,11 @@ const checkGuessing = async (typedNumber) => {
           container.classList.add("error");
           container.innerHTML = html;
           console.log(response.status);
-          const segmentsLoaded = showSegmentNumbers(String(response.status));
-          segmentsLoaded && changeColor("red");
+          const segmentsLoaded = showSegmentNumbers(
+            String(response.status),
+            "red"
+          );
+
           blockFieldsAndShowNewGameButton();
 
           return;
@@ -36,8 +39,8 @@ const checkGuessing = async (typedNumber) => {
 
           //if is success show newGame button
           if (comparisonResult.class === "success") {
-            // showSegmentNumbers(typedNumber);
-            changeColor("green");
+            showSegmentNumbers(typedNumber, "green");
+            // changeColor("green");
             blockFieldsAndShowNewGameButton();
           }
 
@@ -48,7 +51,8 @@ const checkGuessing = async (typedNumber) => {
           let container = document.querySelector("div #response-message");
           container.innerHTML = html;
           console.log("tambem estou chegando");
-          changeColor("green");
+          // changeColor("green");
+          showSegmentNumbers(typedNumber, "blue");
           return;
         }
       });
@@ -60,7 +64,8 @@ const checkGuessing = async (typedNumber) => {
       let container = document.querySelector("div #response-message");
       container.classList.add("error");
       container.innerHTML = html;
-      changeColor("red");
+      // changeColor("red");
+      showSegmentNumbers(typedNumber, "red");
       blockFieldsAndShowNewGameButton();
     });
 };
@@ -96,7 +101,7 @@ const clearInput = () => {
   document.getElementById("guess-input").value = "";
 };
 
-const showSegmentNumbers = (typedNumber) => {
+const showSegmentNumbers = (typedNumber, color) => {
   const splitedTypedNumber = typedNumber.split("");
   const numberDiv = document.getElementById("number-wrapper");
   numberDiv.innerHTML = "";
@@ -104,7 +109,11 @@ const showSegmentNumbers = (typedNumber) => {
     numberDiv.innerHTML += `<object type="image/svg+xml" id="number" data="./assets/${num}.svg" />`;
   });
   console.log("splited number:", splitedTypedNumber);
-  return true;
+  console.log(document.getElementById("number"));
+  document.getElementById("number").onload = () => {
+    console.log("loaded objs");
+    color ? changeColor(color) : null;
+  };
 };
 
 const blockFieldsAndShowNewGameButton = () => {
@@ -121,19 +130,23 @@ const blockFieldsAndShowNewGameButton = () => {
 };
 
 const changeColor = (color) => {
-  this.document.querySelectorAll("object").forEach((obj) => {
+  document.querySelectorAll("object").forEach((obj) => {
     obj
       .getSVGDocument()
       .querySelectorAll("svg path.segment")
       .forEach((c) => {
         c.style.fill = color;
+        // c.classList.add("error");
       });
   });
 };
 
-const changeSegment = () => {
-  const sm = document.documentElement.querySelector("object");
-  const som = document.querySelector("object").contentDocument.documentElement;
-  const som1 = document.querySelector("img");
-  console.log(som1);
-};
+// const changeSegment = () => {
+//   const sm = document.documentElement.querySelector("object");
+//   const som = document.querySelector("object").contentDocument.documentElement;
+//   const som1 = document.querySelector("img");
+//   document.querySelectorAll(".segment").forEach((c) => {
+//     c.classList.add("error");
+//   });
+//   console.log(som1);
+// };
