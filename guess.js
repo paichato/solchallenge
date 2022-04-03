@@ -17,7 +17,6 @@ const newHandleSubmit = () => {
   console.log("serverNumber:", serverData.number, "typedNum:", inputValue);
 
   clearInput();
-  getNumber();
 
   console.log(
     "LocalserverNumber:",
@@ -53,7 +52,7 @@ const newHandleSubmit = () => {
     blockFieldsAndShowNewGameButton();
     return;
   }
-
+  getNumber();
   document
     .getElementById("response-message")
     .classList.add(comparisonResult.class);
@@ -183,6 +182,7 @@ const checkGuessing = async (typedNumber) => {
 //function called when NOVA PARTIDA button is pressed
 const newGame = () => {
   document.getElementById("response-message").classList.remove("answer");
+  document.getElementById("response-message").classList.remove("success");
   const guessInput = document.getElementById("guess-input");
   guessInput.classList.remove("disabled");
   guessInput.value = "";
@@ -194,6 +194,7 @@ const newGame = () => {
   document.querySelector("div #response-message").innerHTML = "";
   showSegmentNumbers("0");
   getNumber();
+  handleFocus();
 };
 
 //function to compare numberFroomTheServer and typedNumber
@@ -211,6 +212,9 @@ const compare = (numberFromTheServer, typedNumber) => {
 //function to clear input
 const clearInput = () => {
   document.getElementById("guess-input").value = "";
+};
+const handleFocus = () => {
+  document.getElementById("guess-input").focus();
 };
 
 //function to show the numbers on submit
