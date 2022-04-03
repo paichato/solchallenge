@@ -2,7 +2,10 @@ const test = () => {
   console.log("hello");
 };
 
-const handleSubmit = async () => {
+const colors = { error: "#CC3300", success: "#32BF00" };
+
+const handleSubmit = async (e) => {
+  // e.preventDefault();
   const inputValue = document.getElementById("guess-input").value;
   if (!inputValue) return;
   clearInput();
@@ -10,6 +13,7 @@ const handleSubmit = async () => {
   // showSegmentNumbers(inputValue);
 };
 
+//function to request
 const checkGuessing = async (typedNumber) => {
   fetch("https://us-central1-ss-devops.cloudfunctions.net/rand?min=1&max=300")
     .then((response) => {
@@ -18,16 +22,14 @@ const checkGuessing = async (typedNumber) => {
         //check if reponse status is greater than 200
         if (response.status > 200) {
           document.getElementById("guess-input").disabled = true;
-          //set innerHTML for error
+
+          //handling error innerHtml
           const html = `ERRO`;
           let container = document.querySelector("div #response-message");
           container.classList.add("error");
           container.innerHTML = html;
           console.log(response.status);
-          const segmentsLoaded = showSegmentNumbers(
-            String(response.status),
-            "red"
-          );
+          showSegmentNumbers(String(response.status), colors.error);
 
           blockFieldsAndShowNewGameButton();
 
@@ -39,7 +41,7 @@ const checkGuessing = async (typedNumber) => {
 
           //if is success show newGame button
           if (comparisonResult.class === "success") {
-            showSegmentNumbers(typedNumber, "green");
+            showSegmentNumbers(typedNumber, colors.success);
             // changeColor("green");
             blockFieldsAndShowNewGameButton();
           }
@@ -52,7 +54,8 @@ const checkGuessing = async (typedNumber) => {
           container.innerHTML = html;
           console.log("tambem estou chegando");
           showSegmentNumbers(typedNumber);
-          // changeColor("green");
+          document.getElementById("guess-input").focus();
+
           return;
         }
       });
@@ -64,7 +67,7 @@ const checkGuessing = async (typedNumber) => {
       let container = document.querySelector("div #response-message");
       container.classList.add("error");
       container.innerHTML = html;
-      changeColor("red");
+      changeColor(colors.error);
       blockFieldsAndShowNewGameButton();
     });
 };

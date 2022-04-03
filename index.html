@@ -37,8 +37,9 @@
         <span>NOVA PARTIDA</span>
       </div>
     </div>
-    <div id="footer">
+    <form action="#" onsubmit="handleSubmit()" id="footer">
       <input
+        autofocus
         min="0"
         maxlength="3"
         placeholder="Digite um palpite"
@@ -48,6 +49,6 @@
  !!value && Math.abs(value) >= 0 ? Math.abs(value) : null"
       />
       <button onclick="handleSubmit()" id="guess-button">ENVIAR</button>
-    </div>
+    </form>
   </body>
 </html>
