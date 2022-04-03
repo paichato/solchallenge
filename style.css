@@ -13,24 +13,6 @@ html {
   font-family: "Montserrat";
 }
 
-@media (max-width: 75em) {
-  html {
-    font-size: 60%;
-  }
-}
-
-@media (max-width: 61.25em) {
-  html {
-    font-size: 58%;
-  }
-}
-
-@media (max-width: 28.75em) {
-  html {
-    font-size: 55%;
-  }
-}
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -63,7 +45,7 @@ body {
   font-style: normal;
   font-weight: 700;
   font-size: 36px;
-  font-size: 3.9rem;
+  font-size: 3.5rem;
 
   text-align: center;
   letter-spacing: -1px;
@@ -77,7 +59,7 @@ body {
 
 #divider {
   align-self: center;
-  width: 58vw;
+  width: 251px;
   background: var(--light_gray);
   height: 1px;
   margin: 10px 0px;
@@ -218,4 +200,66 @@ input::-webkit-color-swatch {
 #guess-button.disabled {
   background: var(--main_gray);
   cursor: not-allowed;
+}
+
+@media (max-width: 75em) {
+  /* 1200px */
+  html {
+    font-size: 60%;
+  }
+}
+
+@media (max-width: 61.25em) {
+  /* 980px */
+  html {
+    font-size: 58%;
+  }
+}
+
+@media (max-width: 28.75em) {
+  /* 460px */
+
+  #title {
+    font-size: 24px;
+    height: 35px;
+  }
+  #divider {
+    width: 205px;
+  }
+
+  #guess-input {
+    width: 217px;
+  }
+
+  #guess-button {
+    width: 70px;
+  }
+}
+
+@media (max-width: 20em) {
+  /* 460px */
+  html {
+    font-size: 55%;
+  }
+  #title {
+    font-size: 24px;
+    height: 35px;
+  }
+  #divider {
+    width: 205px;
+  }
+
+  #guess-input {
+    width: 217px;
+  }
+
+  #guess-button {
+    width: 70px;
+    margin-top: 10px;
+  }
+  #footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }

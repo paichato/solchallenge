@@ -1,4 +1,15 @@
-A logica do programa se baseia em
+## LOGICA
+
+A logica do programa se baseia em assim que a pagi a é carregada, é feita uma requisição que para pegar o valor e armazena numa _variavel_ e numa _constante_ o valor e o status da requisição.
+A _variável_ e´ actualizada sempre que é feita uma requisição.
+A _constante_ é usada para comparar valores introduzidos pelo usuário e é actualizada com o valor da variável quando o botão **ENVIAR** é clicado.
+O input não permite a inserção de números negativos, números maiores que 300 nem menores que 1
+Ao clicar em **NOVA PARTIDA**, o input, o display e resposta são resetados.
+Ao clicar em **ENVIAR**, são comparados os valores introduzidos e os valores já recebidos do servidor(da _constante_). Após a comparação são exibidos os valores no display consoante o resultado da comparação.
+
+---
+
+## ALGORISMO
 
 Para o algorismo do display gerei elementos do tipo _SVG_ na pasta assets baseados na UI do figma,
 onde cada digito corresponse a um _svg_. Cada _svg_ contém 7 elementos do tipo **path** que neste caso
