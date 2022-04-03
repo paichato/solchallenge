@@ -4,13 +4,115 @@ const test = () => {
 
 const colors = { error: "#CC3300", success: "#32BF00" };
 
+let serverData = { number: "0", status: "null" };
+
+window.onload = () => {
+  getNumber();
+};
+
+const newHandleSubmit = () => {
+  const inputValue = document.getElementById("guess-input").value;
+  if (!inputValue) return;
+  const localServerData = serverData;
+  console.log("serverNumber:", serverData.number, "typedNum:", inputValue);
+
+  clearInput();
+  getNumber();
+
+  console.log(
+    "LocalserverNumber:",
+    localServerData.number,
+    "typedNum:",
+    inputValue
+  );
+
+  if (Number(localServerData.number) < 0) {
+    const html = `<p>ERRO</p>`;
+    let container = document.querySelector("div #response-message");
+    container.classList.add("error");
+    container.innerHTML = html;
+    showSegmentNumbers(inputValue, colors.error);
+    blockFieldsAndShowNewGameButton();
+    return;
+  }
+
+  const comparisonResult = compare(
+    Number(localServerData.number),
+    Number(inputValue)
+  );
+
+  //if is success show newGame button
+  if (comparisonResult.class === "success") {
+    showSegmentNumbers(inputValue, colors.success);
+    // changeColor("green");
+    blockFieldsAndShowNewGameButton();
+  }
+
+  document
+    .getElementById("response-message")
+    .classList.add(comparisonResult.class);
+  const html = `<p>${comparisonResult.result}</p>`;
+  let container = document.querySelector("div #response-message");
+  container.innerHTML = html;
+  console.log("tambem estou chegando");
+  showSegmentNumbers(inputValue);
+  document.getElementById("guess-input").focus();
+
+  return;
+};
+
 const handleSubmit = async (e) => {
   // e.preventDefault();
   const inputValue = document.getElementById("guess-input").value;
   if (!inputValue) return;
   clearInput();
   checkGuessing(inputValue);
-  // showSegmentNumbers(inputValue);
+
+  console.log("RUNNING HANDLE SUBMIT");
+};
+
+const getNumber = async () => {
+  fetch("https://us-central1-ss-devops.cloudfunctions.net/rand?min=1&max=300")
+    .then((response) => {
+      // handle the response and stringify json response
+      response.json().then((responseJSON) => {
+        //check if reponse status is greater than 200
+        if (response.status > 200) {
+          serverData.number = String(response.status);
+          serverData.status = "error";
+          console.log("error status number:", String(response.status));
+
+          document.getElementById("guess-input").disabled = true;
+
+          //handling error innerHtml
+          const html = `ERRO`;
+          let container = document.querySelector("div #response-message");
+          container.classList.add("error");
+          container.innerHTML = html;
+          console.log(response.status);
+          showSegmentNumbers(String(response.status), colors.error);
+
+          blockFieldsAndShowNewGameButton();
+
+          return;
+        } else {
+          //compare the typed number with the server number the set the innerHTML based
+          //on the result
+          serverData.number = responseJSON.value;
+          serverData.status = "sucess";
+          console.log("positive number:", serverData.number);
+
+          //if is success show newGame button
+
+          return;
+        }
+      });
+    })
+    .catch((error) => {
+      // handle the error for request/connection
+      serverData.number = "-1";
+      serverData.status = "error";
+    });
 };
 
 //function to request
@@ -40,7 +142,7 @@ const checkGuessing = async (typedNumber) => {
           const comparisonResult = compare(responseJSON.value, typedNumber);
 
           //if is success show newGame button
-          if (comparisonResult.class === "success") {
+          if (comparisonResult.class == "success") {
             showSegmentNumbers(typedNumber, colors.success);
             // changeColor("green");
             blockFieldsAndShowNewGameButton();
@@ -67,7 +169,7 @@ const checkGuessing = async (typedNumber) => {
       let container = document.querySelector("div #response-message");
       container.classList.add("error");
       container.innerHTML = html;
-      changeColor(colors.error);
+      showSegmentNumbers(typedNumber), colors.error;
       blockFieldsAndShowNewGameButton();
     });
 };
@@ -85,6 +187,7 @@ const newGame = () => {
   document.querySelector("div #play-again").style.visibility = "hidden";
   document.querySelector("div #response-message").innerHTML = "";
   showSegmentNumbers("0");
+  getNumber();
 };
 
 //function to compare numberFroomTheServer and typedNumber
@@ -95,7 +198,7 @@ const compare = (numberFromTheServer, typedNumber) => {
     return { result: "É MENOR", class: "answer" };
   if (typedNumber > numberFromTheServer)
     return { result: "É MAIOR", class: "answer" };
-  if (typedNumber < numberFromTheServer)
+  if (typedNumber === numberFromTheServer)
     return { result: "Você acertou!!!!", class: "success" };
 };
 

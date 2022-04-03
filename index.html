@@ -33,7 +33,7 @@
         <span>NOVA PARTIDA</span>
       </div>
     </div>
-    <form action="#" onsubmit="handleSubmit()" id="footer">
+    <form action="#" onsubmit="newHandleSubmit()" id="footer">
       <input
         autofocus
         min="0"
@@ -42,9 +42,9 @@
         type="text"
         id="guess-input"
         oninput="value = 
- !!value && Math.abs(value) >= 0 ? Math.abs(value) : null"
+ !!value && Math.abs(value) >= 1 && Math.abs(value) <300 ? Math.abs(value) : null"
       />
-      <button onclick="handleSubmit()" id="guess-button">ENVIAR</button>
+      <button onclick="newHandleSubmit()" id="guess-button">ENVIAR</button>
     </form>
   </body>
 </html>
