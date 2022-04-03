@@ -136,7 +136,7 @@ body {
 #number {
   margin-right: 10px;
 }
-
+/* 
 svg.success {
   fill: #32bf00;
 }
@@ -155,7 +155,7 @@ svg.success path.success {
 
 .segment.error {
   fill: red;
-}
+} */
 
 /* #number .top {
   height: 50%;

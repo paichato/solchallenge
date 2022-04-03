@@ -6,8 +6,8 @@ const handleSubmit = async () => {
   const inputValue = document.getElementById("guess-input").value;
   if (!inputValue) return;
   clearInput();
-  // showSegmentNumbers(inputValue);
   checkGuessing(inputValue);
+  // showSegmentNumbers(inputValue);
 };
 
 const checkGuessing = async (typedNumber) => {
@@ -51,8 +51,8 @@ const checkGuessing = async (typedNumber) => {
           let container = document.querySelector("div #response-message");
           container.innerHTML = html;
           console.log("tambem estou chegando");
+          showSegmentNumbers(typedNumber);
           // changeColor("green");
-          showSegmentNumbers(typedNumber, "blue");
           return;
         }
       });
@@ -64,8 +64,7 @@ const checkGuessing = async (typedNumber) => {
       let container = document.querySelector("div #response-message");
       container.classList.add("error");
       container.innerHTML = html;
-      // changeColor("red");
-      showSegmentNumbers(typedNumber, "red");
+      changeColor("red");
       blockFieldsAndShowNewGameButton();
     });
 };
@@ -76,9 +75,10 @@ const newGame = () => {
   const guessInput = document.getElementById("guess-input");
   guessInput.classList.remove("disabled");
   guessInput.value = "";
+  guessInput.disabled = false;
 
-  document.getElementById("guess-button").classList.remove("disabled");
   document.querySelector("button").disabled = false;
+  document.getElementById("guess-button").classList.remove("disabled");
   document.querySelector("div #play-again").style.visibility = "hidden";
   document.querySelector("div #response-message").innerHTML = "";
   showSegmentNumbers("0");
@@ -87,7 +87,6 @@ const newGame = () => {
 //function to compare numberFroomTheServer and typedNumber
 //returns an object with the result string and class
 const compare = (numberFromTheServer, typedNumber) => {
-  // const typedNumber = document.getElementById("guess-input").value;
   console.log("typed number:", typedNumber);
   if (typedNumber < numberFromTheServer)
     return { result: "É MENOR", class: "answer" };
@@ -97,10 +96,12 @@ const compare = (numberFromTheServer, typedNumber) => {
     return { result: "Você acertou!!!!", class: "success" };
 };
 
+//function to clear input
 const clearInput = () => {
   document.getElementById("guess-input").value = "";
 };
 
+//function to show the numbers on submit
 const showSegmentNumbers = (typedNumber, color) => {
   const splitedTypedNumber = typedNumber.split("");
   const numberDiv = document.getElementById("number-wrapper");
@@ -109,13 +110,13 @@ const showSegmentNumbers = (typedNumber, color) => {
     numberDiv.innerHTML += `<object type="image/svg+xml" id="number" data="./assets/${num}.svg" />`;
   });
   console.log("splited number:", splitedTypedNumber);
-  console.log(document.getElementById("number"));
-  document.getElementById("number").onload = () => {
-    console.log("loaded objs");
+  document.getElementById("number").addEventListener("load", (e) => {
+    console.log("loaded objs", e);
     color ? changeColor(color) : null;
-  };
+  });
 };
 
+//function to handle new game
 const blockFieldsAndShowNewGameButton = () => {
   document.getElementById("guess-input").classList.add("disabled");
   document.getElementById("response-message").classList.toggle("answer");
@@ -129,6 +130,7 @@ const blockFieldsAndShowNewGameButton = () => {
   ).style.visibility = "visible");
 };
 
+//function to change the color based on paramater/type
 const changeColor = (color) => {
   document.querySelectorAll("object").forEach((obj) => {
     obj
