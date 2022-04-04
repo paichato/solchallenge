@@ -13,7 +13,7 @@
     <script src="./guess.js"></script>
 
     <title>Document</title>
-    <link rel="stylesheet" href="style.css" />
+    <link media="all" rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div id="header">
@@ -33,7 +33,7 @@
         <span>NOVA PARTIDA</span>
       </div>
     </div>
-    <form action="#" onsubmit="newHandleSubmit()" id="footer">
+    <div id="footer">
       <input
         autofocus
         min="0"
@@ -45,6 +45,6 @@
  !!value && Math.abs(value) >= 1 && Math.abs(value) <300 ? Math.abs(value) : null"
       />
       <button onclick="newHandleSubmit()" id="guess-button">ENVIAR</button>
-    </form>
+    </div>
   </body>
 </html>

@@ -2,8 +2,9 @@ const path = require("path");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 module.exports = {
-  entry: "./guess.js",
+  entry: ["./guess.js", "@babel/polyfill"],
   output: {
     filename: "bundle.js",
     path: path.resolve(__dirname, "build"),
@@ -45,6 +46,14 @@ module.exports = {
     //   template: path.resolve("./index.html"),
     // }),
     // new HtmlWebpackPlugin(),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, "./assets/"),
+          to: path.resolve(__dirname, "build"),
+        },
+      ],
+    }),
   ],
   devServer: {
     // contentBase: "./dist",

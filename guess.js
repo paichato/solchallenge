@@ -2,7 +2,7 @@ const colors = { error: "#CC3300", success: "#32BF00", green: "green" };
 
 let serverData = { number: "0", status: "null" };
 
-window.onload = () => {
+window.onpageshow = () => {
   getNumber();
 };
 
@@ -13,13 +13,6 @@ const newHandleSubmit = () => {
   // console.log("serverNumber:", serverData.number, "typedNum:", inputValue);
 
   clearInput();
-
-  // console.log(
-  //   "LocalserverNumber:",
-  //   localServerData.number,
-  //   "typedNum:",
-  //   inputValue
-  // );
 
   if (Number(localServerData.number) < 0) {
     const html = `<p>ERRO</p>`;
@@ -49,13 +42,14 @@ const newHandleSubmit = () => {
     return;
   }
   getNumber();
+  showSegmentNumbers(inputValue);
   document
     .getElementById("response-message")
     .classList.add(comparisonResult.class);
   const html = `<p>${comparisonResult.result}</p>`;
   let container = document.querySelector("div #response-message");
   container.innerHTML = html;
-  showSegmentNumbers(inputValue);
+
   document.getElementById("guess-input").focus();
 
   return;
@@ -148,10 +142,10 @@ const showSegmentNumbers = (typedNumber, color) => {
   const splitedTypedNumber = typedNumber.split("");
   const numberDiv = document.getElementById("number-wrapper");
   numberDiv.innerHTML = "";
-  splitedTypedNumber.map((num) => {
+  splitedTypedNumber.forEach((num) => {
     numberDiv.innerHTML += `<object type="image/svg+xml" id="number" data="./assets/${num}.svg" />`;
   });
-  // console.log("splited number:", splitedTypedNumber);
+
   document.getElementById("number").addEventListener("load", (e) => {
     console.log("loaded objs");
     setTimeout(() => {
