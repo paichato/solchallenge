@@ -62,16 +62,6 @@ const newHandleSubmit = () => {
   return;
 };
 
-const handleSubmit = async (e) => {
-  // e.preventDefault();
-  const inputValue = document.getElementById("guess-input").value;
-  if (!inputValue) return;
-  clearInput();
-  checkGuessing(inputValue);
-
-  console.log("RUNNING HANDLE SUBMIT");
-};
-
 const getNumber = async () => {
   fetch("https://us-central1-ss-devops.cloudfunctions.net/rand?min=1&max=300")
     .then((response) => {
@@ -165,7 +155,9 @@ const showSegmentNumbers = (typedNumber, color) => {
   console.log("splited number:", splitedTypedNumber);
   document.getElementById("number").addEventListener("load", (e) => {
     console.log("loaded objs", e);
-    color ? changeColor(color) : null;
+    setTimeout(() => {
+      color ? changeColor(color) : null;
+    }, 50);
   });
 };
 
@@ -251,9 +243,22 @@ const checkGuessing = async (typedNumber) => {
       let container = document.querySelector("div #response-message");
       container.classList.add("error");
       container.innerHTML = html;
-      showSegmentNumbers(typedNumber), colors.error;
+      showSegmentNumbers(typedNumber, colors.error);
       blockFieldsAndShowNewGameButton();
     });
 };
 
+const handleSubmit = async (e) => {
+  // e.preventDefault();
+  const inputValue = document.getElementById("guess-input").value;
+  if (!inputValue) return;
+  clearInput();
+  checkGuessing(inputValue);
+
+  console.log("RUNNING HANDLE SUBMIT");
+};
+
 //-------------------------------------- PLEASE IGNORE THIS SECTION ---------------------------------------------------
+
+// module.exports = { newGame, newHandleSubmit, changeColor, getNumber };
+// export { newGame, newHandleSubmit };
