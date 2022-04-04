@@ -9,8 +9,8 @@ module.exports = {
   entry: ["./guess.js"],
   output: {
     filename: "bundle.js",
-    path: path.resolve(__dirname, "build"),
-    publicPath: "/",
+    path: path.resolve(__dirname, "dist"),
+    // publicPath: "/",
   },
   optimization: {
     // splitChunks: {
@@ -48,32 +48,32 @@ module.exports = {
         test: /\.html$/,
         use: "html-loader",
       },
-      {
-        test: /\.(scss|css)$/,
-        use: ["style-loader", "css-loader"],
-      },
+      // {
+      //   test: /\.(scss|css)$/,
+      //   use: ["style-loader", "css-loader"],
+      // },
     ],
   },
   plugins: [
     // New plugin
-    new HtmlWebpackPlugin({
-      // injects bundle.js to our new index.html
-      // copys the content of the existing index.html to the new /build index.html
-      template: path.resolve("./index.html"),
-    }),
-    // new HtmlWebpackPlugin(),
-    new BundleAnalyzerPlugin(),
-    new CopyPlugin({
-      patterns: [
-        {
-          from: path.resolve(__dirname, "./assets/"),
-          to: path.resolve(__dirname, "build"),
-        },
-      ],
-    }),
+    // new HtmlWebpackPlugin({
+    //   // injects bundle.js to our new index.html
+    //   // copys the content of the existing index.html to the new /build index.html
+    //   template: path.resolve("./index.html"),
+    // }),
+    // // new HtmlWebpackPlugin(),
+    // new BundleAnalyzerPlugin(),
+    // new CopyPlugin({
+    //   patterns: [
+    //     {
+    //       from: path.resolve(__dirname, "./assets/"),
+    //       to: path.resolve(__dirname, "build"),
+    //     },
+    //   ],
+    // }),
   ],
   devServer: {
-    writeToDisk: true,
+    // writeToDisk: true,
     // contentBase: "./dist",
     //   static: {
     //     directory: path.join(__dirname, "public"),
