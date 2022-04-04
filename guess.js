@@ -10,7 +10,6 @@ const newHandleSubmit = () => {
   const inputValue = document.getElementById("guess-input").value;
   if (!inputValue) return;
   const localServerData = serverData;
-  // console.log("serverNumber:", serverData.number, "typedNum:", inputValue);
 
   clearInput();
 
@@ -254,6 +253,3 @@ const handleSubmit = async (e) => {
 };
 
 //-------------------------------------- PLEASE IGNORE THIS SECTION ---------------------------------------------------
-
-// module.exports = { newGame, newHandleSubmit, changeColor, getNumber };
-// export { newGame, newHandleSubmit };
