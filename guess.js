@@ -1,3 +1,5 @@
+require("@babel/register");
+import css from "./style.css";
 const colors = { error: "#CC3300", success: "#32BF00", green: "green" };
 
 let serverData = { number: "0", status: "null" };
@@ -142,16 +144,18 @@ const showSegmentNumbers = (typedNumber, color) => {
   const splitedTypedNumber = typedNumber.split("");
   const numberDiv = document.getElementById("number-wrapper");
   numberDiv.innerHTML = "";
-  splitedTypedNumber.forEach((num) => {
-    numberDiv.innerHTML += `<object type="image/svg+xml" id="number" data="./assets/${num}.svg" />`;
-  });
+  setTimeout(() => {
+    splitedTypedNumber.forEach((num) => {
+      numberDiv.innerHTML += `<object type="image/svg+xml" id="number" data="./assets/${num}.svg" />`;
+    });
 
-  document.getElementById("number").addEventListener("load", (e) => {
-    console.log("loaded objs");
-    setTimeout(() => {
-      color ? changeColor(color) : null;
-    }, 50);
-  });
+    document.getElementById("number").addEventListener("load", (e) => {
+      console.log("loaded objs");
+      setTimeout(() => {
+        color ? changeColor(color) : null;
+      }, 50);
+    });
+  }, 50);
 };
 
 //function to handle new game
