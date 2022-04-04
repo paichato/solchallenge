@@ -1,10 +1,13 @@
 /node_modules
-# /dist
+/dist
 
 # compiled output
-# /dist
+/dist
 /tmp
 /out-tsc
+
+# /lib
+/build
 
 # Runtime data
 pids

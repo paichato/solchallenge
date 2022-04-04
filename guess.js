@@ -10,16 +10,16 @@ const newHandleSubmit = () => {
   const inputValue = document.getElementById("guess-input").value;
   if (!inputValue) return;
   const localServerData = serverData;
-  console.log("serverNumber:", serverData.number, "typedNum:", inputValue);
+  // console.log("serverNumber:", serverData.number, "typedNum:", inputValue);
 
   clearInput();
 
-  console.log(
-    "LocalserverNumber:",
-    localServerData.number,
-    "typedNum:",
-    inputValue
-  );
+  // console.log(
+  //   "LocalserverNumber:",
+  //   localServerData.number,
+  //   "typedNum:",
+  //   inputValue
+  // );
 
   if (Number(localServerData.number) < 0) {
     const html = `<p>ERRO</p>`;
@@ -55,7 +55,6 @@ const newHandleSubmit = () => {
   const html = `<p>${comparisonResult.result}</p>`;
   let container = document.querySelector("div #response-message");
   container.innerHTML = html;
-  console.log("tambem estou chegando");
   showSegmentNumbers(inputValue);
   document.getElementById("guess-input").focus();
 
@@ -71,7 +70,7 @@ const getNumber = async () => {
         if (response.status > 200) {
           serverData.number = String(response.status);
           serverData.status = "error";
-          console.log("error status number:", String(response.status));
+          console.log("error status code:", String(response.status));
 
           document.getElementById("guess-input").disabled = true;
 
@@ -80,7 +79,7 @@ const getNumber = async () => {
           let container = document.querySelector("div #response-message");
           container.classList.add("error");
           container.innerHTML = html;
-          console.log(response.status);
+
           showSegmentNumbers(String(response.status), colors.error);
 
           blockFieldsAndShowNewGameButton();
@@ -91,7 +90,7 @@ const getNumber = async () => {
           //on the result
           serverData.number = responseJSON.value;
           serverData.status = "sucess";
-          console.log("positive number:", serverData.number);
+          console.log("number from server:", serverData.number);
 
           //if is success show newGame button
 
@@ -127,7 +126,7 @@ const newGame = () => {
 //function to compare numberFroomTheServer and typedNumber
 //returns an object with the result string and class
 const compare = (numberFromTheServer, typedNumber) => {
-  console.log("typed number:", typedNumber);
+  // console.log("typed number:", typedNumber);
   if (typedNumber < numberFromTheServer)
     return { result: "É MENOR", class: "answer" };
   if (typedNumber > numberFromTheServer)
@@ -152,9 +151,9 @@ const showSegmentNumbers = (typedNumber, color) => {
   splitedTypedNumber.map((num) => {
     numberDiv.innerHTML += `<object type="image/svg+xml" id="number" data="./assets/${num}.svg" />`;
   });
-  console.log("splited number:", splitedTypedNumber);
+  // console.log("splited number:", splitedTypedNumber);
   document.getElementById("number").addEventListener("load", (e) => {
-    console.log("loaded objs", e);
+    console.log("loaded objs");
     setTimeout(() => {
       color ? changeColor(color) : null;
     }, 50);
@@ -167,7 +166,7 @@ const blockFieldsAndShowNewGameButton = () => {
   document.getElementById("response-message").classList.toggle("answer");
   document.getElementById("guess-button").classList.add("disabled");
   const SendButton = document.querySelector("button");
-
+  document.getElementById("guess-input").disabled = true;
   SendButton.disabled = true;
 
   const newGameButton = (document.querySelector(
