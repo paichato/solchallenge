@@ -4,7 +4,8 @@
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
     "test": "jest",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "dev": "webpack serve --mode development"
   },
   "repository": "https://github.com/paichato/solchallenge.git",
   "author": "paichato <tsenane14@gmail.com>",
