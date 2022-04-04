@@ -1,5 +1,5 @@
-require("@babel/register");
-import css from "./style.css";
+// require("@babel/register");
+// import css from "./style.css";
 const colors = { error: "#CC3300", success: "#32BF00", green: "green" };
 
 let serverData = { number: "0", status: "null" };
