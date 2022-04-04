@@ -5,7 +5,8 @@ module.exports = {
   entry: "./guess.js",
   output: {
     filename: "bundle.js",
-    path: path.resolve("./build"),
+    path: path.resolve(__dirname, "build"),
+    publicPath: "/",
   },
   module: {
     rules: [
@@ -34,11 +35,12 @@ module.exports = {
       template: path.resolve("./index.html"),
     }),
   ],
-  //   devServer: {
-  //     static: {
-  //       directory: path.join(__dirname, "public"),
-  //     },
-  //     compress: true,
-  //     port: 9000,
-  //   },
+  devServer: {
+    contentBase: "./build",
+    //   static: {
+    //     directory: path.join(__dirname, "public"),
+    //   },
+    //   compress: true,
+    //   port: 9000,
+  },
 };
