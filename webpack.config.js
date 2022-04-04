@@ -15,14 +15,14 @@ module.exports = {
         exclude: "/node-modules/",
         use: "babel-loader",
       },
-      {
-        test: /\.html$/,
-        use: "html-loader",
-      },
-      {
-        test: /\.(scss|sass)$/,
-        use: ["style-loader", "css-loader", "sass-loader"],
-      },
+      //   {
+      //     test: /\.html$/,
+      //     use: "html-loader",
+      //   },
+      //   {
+      //     test: /\.(scss|sass)$/,
+      //     use: ["style-loader", "css-loader", "sass-loader"],
+      //   },
     ],
   },
   plugins: [
