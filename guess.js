@@ -1,18 +1,27 @@
 const colors = { error: "#CC3300", success: "#32BF00", green: "green" };
 
+//variable that saves fetched data
 let serverData = { number: "0", status: "null" };
 
+//fetch the number on page show
 window.onpageshow = () => {
   getNumber();
 };
 
-const newHandleSubmit = () => {
+//function to handle ENVIAR button
+const handleSubmitGuess = () => {
+  //get the inputValue
   const inputValue = document.getElementById("guess-input").value;
+
+  //if its empty dont submit
   if (!inputValue) return;
+
+  //save fetched number to constant
   const localServerData = serverData;
 
   clearInput();
 
+  //if there is a network error dont compare just show error
   if (Number(localServerData.number) < 0) {
     const html = `<p>ERRO</p>`;
     let container = document.querySelector("div #response-message");
@@ -23,12 +32,13 @@ const newHandleSubmit = () => {
     return;
   }
 
+  //get comparison resut of fetched number and input number
   const comparisonResult = compare(
     Number(localServerData.number),
     Number(inputValue)
   );
 
-  //if is success show newGame button
+  //if is success show newGame button and block input and button
   if (comparisonResult.class === "success") {
     showSegmentNumbers(inputValue, colors.success);
     document
@@ -54,6 +64,7 @@ const newHandleSubmit = () => {
   return;
 };
 
+//function to fetch number
 const getNumber = async () => {
   fetch("https://us-central1-ss-devops.cloudfunctions.net/rand?min=1&max=300")
     .then((response) => {
