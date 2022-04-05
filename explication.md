@@ -1,3 +1,20 @@
+# Instrucoes
+
+### link da demo: https://paichato.github.io/solchallenge/
+
+### link do projecto no **GITHUB**: https://github.com/paichato/solchallenge/
+
+---
+
+> **Explicações do exercício encontram se no ficheiro explication.md**
+
+Para correr localmente o projeto após baixar do **DRIVE**, siga as instruções abaixo
+
+1. Na terminal: `yarn install`
+2. Na terminal: `yarn dev` , vai instanciar o webpack na porta 8080
+3. No browser colocar a url : _localhost:8080/_
+4. Os valores da requisação podem ser visualizados no console(inpector dev tools)
+
 ## LOGICA
 
 A logica do programa se baseia em assim que a pagi a é carregada, é feita uma requisição que para pegar o valor e armazena numa _variavel_ e numa _constante_ o valor e o status da requisição.
