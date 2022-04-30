@@ -74,7 +74,7 @@ const getNumber = async () => {
         if (response.status > 200) {
           serverData.number = String(response.status);
           serverData.status = "error";
-          console.log("error status code:", String(response.status));
+          // console.log("error status code:", String(response.status));
 
           document.getElementById("guess-input").disabled = true;
 
@@ -157,12 +157,17 @@ const showSegmentNumbers = (typedNumber, color) => {
       numberDiv.innerHTML += `<object type="image/svg+xml" id="number" data="./assets/${num}.svg" />`;
     });
 
-    document.getElementById("number").addEventListener("load", (e) => {
-      console.log("loaded objs");
-      setTimeout(() => {
+    document.getElementById("number").addEventListener(
+      "load",
+      (e) => {
+        // console.log("loaded objs", numberDiv.innerHTML);
+
+        // setTimeout(() => {
         color ? changeColor(color) : null;
-      }, 50);
-    });
+        // }, 50);
+      },
+      false
+    );
   }, 50);
 };
 
